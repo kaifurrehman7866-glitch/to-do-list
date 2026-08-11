@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive To-Do List — DOM Manipulation</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app">
+    <header class="app-header">
+      <h1>To-Do List</h1>
+      <p class="subtitle">DOM Manipulation Practice</p>
+    </header>
+
+    <form id="todo-form" class="todo-form">
+      <input
+        type="text"
+        id="todo-input"
+        placeholder="What do you need to do?"
+        autocomplete="off"
+      >
+      <button type="submit">Add</button>
+    </form>
+
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="active">Active</button>
+      <button class="filter-btn" data-filter="completed">Completed</button>
+    </div>
+
+    <ul id="todo-list" class="todo-list"></ul>
+
+    <footer class="app-footer">
+      <span id="counter">0 tasks remaining</span>
+      <button id="clear-completed" class="clear-btn">Clear completed</button>
+    </footer>
+  </div>
+
+  <div class="notes">
+    <h2>DOM ↔ Data Sync — Notes</h2>
+    <p>
+      Every task lives first as a plain JavaScript object (<code>{ id, text, completed }</code>)
+      inside a single <code>tasks</code> array — that array is the "source of truth," not the DOM.
+      Any action (add, toggle, delete, filter) first mutates the array, then calls one
+      <code>render()</code> function that clears <code>#todo-list</code> and rebuilds the visible
+      &lt;li&gt; elements from whatever is currently in <code>tasks</code>, using
+      <code>document.createElement</code> instead of building HTML strings. Because rendering
+      always reads from the array rather than from whatever is already on screen, the DOM can
+      never drift out of sync with the data — it's simply a fresh reflection of it after every
+      change. The live counter and empty-state message are computed the same way, straight from
+      the array length, so they update automatically every time <code>render()</code> runs.
+    </p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
